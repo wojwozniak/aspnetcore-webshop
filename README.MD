@@ -2,6 +2,15 @@
 This repo contains end of semester project for ASP.NET Course - full-stack .NET app of online shop.
 It contains two solutions - `WebApi` with backend code and `WebShop` with frontend.
 
+## File structure
+### Database
+Database directory contains everything needed to understand database schema and to reconstruct the database locally.
+in `/description` there is a schema of the database, while in `/sql` you can find sql queries to create tables and to populate it with mock data.
+### WebApi
+Backend
+### WebShop
+Frontend
+
 ## How to run
 You need two instances of Visual Studio.
 - Open each part in separate VS instance

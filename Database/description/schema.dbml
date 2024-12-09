@@ -1,0 +1,72 @@
+Table Users {
+    User_ID int [pk, increment, not null]
+    Name varchar(100) [not null]
+    Email varchar(255) [unique, not null]
+    Phone_Number varchar(15)
+    Address text
+    Role varchar(50) [default: "customer", not null] // e.g., customer or admin
+}
+
+Table Passwords {
+    Password_ID int [pk, increment, not null]
+    User_ID int [not null, ref: > Users.User_ID]
+    Password_Hash varchar(255) [not null]
+    Created_At datetime [default: `CURRENT_TIMESTAMP`, not null]
+}
+
+Table Categories {
+    Category_ID int [pk, increment, not null]
+    Category_Name varchar(100) [not null]
+    Parent_Category_ID int [ref: > Categories.Category_ID]
+}
+
+Table Products {
+    Product_ID int [pk, increment, not null]
+    Name varchar(200) [not null]
+    Description text
+    Category_ID int [not null, ref: > Categories.Category_ID]
+    Price decimal(10,2) [not null]
+    Stock_Quantity int [default: 0, not null]
+    Image_URL varchar(255)
+}
+
+Table Orders {
+    Order_ID int [pk, increment, not null]
+    User_ID int [not null, ref: > Users.User_ID]
+    Order_Date datetime [default: `CURRENT_TIMESTAMP`, not null]
+    Status varchar(50) [default: "Pending", not null] // e.g., Pending, Shipped, Delivered, Canceled
+    Total_Amount decimal(10,2) [not null]
+}
+
+Table Order_Items {
+    Order_Item_ID int [pk, increment, not null]
+    Order_ID int [not null, ref: > Orders.Order_ID]
+    Product_ID int [not null, ref: > Products.Product_ID]
+    Quantity int [default: 1, not null]
+    Price decimal(10,2) [not null]
+}
+
+Table Cart {
+    Cart_ID int [pk, increment, not null]
+    User_ID int [not null, ref: > Users.User_ID]
+    Product_ID int [not null, ref: > Products.Product_ID]
+    Quantity int [default: 1, not null]
+}
+
+Table Discounts {
+    Discount_ID int [pk, increment, not null]
+    Code varchar(50) [unique, not null]
+    Description text
+    Discount_Percentage decimal(5,2) [not null]
+    Start_Date datetime [not null]
+    End_Date datetime [not null]
+}
+
+Table Payments {
+    Payment_ID int [pk, increment, not null]
+    Order_ID int [not null, ref: > Orders.Order_ID]
+    Payment_Method varchar(50) [not null] // e.g., Credit Card, PayPal, Bank Transfer
+    Payment_Date datetime [default: `CURRENT_TIMESTAMP`, not null]
+    Payment_Status varchar(50) [default: "Pending", not null] // e.g., Pending, Completed, Failed
+    Amount decimal(10,2) [not null]
+}
