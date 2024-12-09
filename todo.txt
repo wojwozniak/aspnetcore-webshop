@@ -1,0 +1,6 @@
+Basic main tasks that will be expanded on into future
+- Setup database, add it to `How to run` section
+- Setup WebAPI basic functionality
+- Setup WebAPI authentication
+- Setup WebShop basic layout
+- Use WebAPI in WebShop
