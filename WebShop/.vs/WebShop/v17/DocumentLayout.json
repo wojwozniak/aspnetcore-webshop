@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\wozni\\Desktop\\C\\aspnetcore-webshop\\WebShop\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E2DF7ED9-F4D0-46C0-86A0-4DC29D072216}|WebShop.csproj|c:\\users\\wozni\\desktop\\c\\aspnetcore-webshop\\webshop\\webshop.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{E2DF7ED9-F4D0-46C0-86A0-4DC29D072216}|WebShop.csproj|solutionrelative:webshop.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,8 +14,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "WebShop",
+              "DocumentMoniker": "C:\\Users\\wozni\\Desktop\\C\\aspnetcore-webshop\\WebShop\\WebShop.csproj",
+              "RelativeDocumentMoniker": "WebShop.csproj",
+              "ToolTip": "C:\\Users\\wozni\\Desktop\\C\\aspnetcore-webshop\\WebShop\\WebShop.csproj",
+              "RelativeToolTip": "WebShop.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-12-11T14:18:16.922Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
