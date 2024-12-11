@@ -18,7 +18,7 @@ Frontend
 - Run `init_tables.sql`
 - Run `populate_tables.sql`
 ### Backend setup
-- Start `WebApi.csproj` in a VS instance
+- Start `WebApi.sln` in a VS instance
 - Run `dotnet restore` to install all needed packages
 - Replace connection string with your own. Your appsettings.Development.json should look like this
 ```json
@@ -30,7 +30,7 @@ Frontend
 ```
 - Run it
 ### Frontend setup
-- Start `WebShop.csproj` in a VS instance
+- Start `WebShop.sln` in a VS instance
 - Run `dotnet restore` to install all needed packages
 - Run it
 
