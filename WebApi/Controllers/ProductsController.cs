@@ -17,7 +17,7 @@ namespace WebAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProductList()
         {
             var data = await _context.Products.ToListAsync();
             return data;
