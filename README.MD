@@ -29,5 +29,6 @@ Frontend
 - Run `dotnet restore` to install all needed packages
 - Run it
 
-
-When you start project again, you need to start it in this sequence.
+### Developer footnotes
+- When you start project again, you need to start it in this sequence
+- If you make changes to backend, regenerate `swagger.json` file
