@@ -15,9 +15,11 @@ namespace WebClasses
 
         public int? Parent_Category_ID { get; set; }
 
-        [ForeignKey(nameof(Parent_Category_ID))]
+        [NotMapped]
         public Category ParentCategory { get; set; }
+        [NotMapped]
         public ICollection<Category> ChildCategories { get; set; }
+        [NotMapped]
         public ICollection<Product> Products { get; set; }
     }
 
