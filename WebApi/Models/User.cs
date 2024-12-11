@@ -25,9 +25,5 @@ namespace WebApi.Models
         [Required]
         [StringLength(1)]
         public string Role { get; set; } = "C";
-
-        public ICollection<Password> Passwords { get; set; }
-        public ICollection<Order> Orders { get; set; }
-        public ICollection<Cart> Carts { get; set; }
     }
 }

@@ -22,9 +22,5 @@ namespace WebApi.Models
         [Required]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Total_Amount { get; set; }
-
-        public User User { get; set; }
-        public ICollection<OrderItem> OrderItems { get; set; }
-        public ICollection<Payment> Payments { get; set; }
     }
 }

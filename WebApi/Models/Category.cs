@@ -14,13 +14,6 @@ namespace WebApi.Models
         public string Category_Name { get; set; }
 
         public int? Parent_Category_ID { get; set; }
-
-        [NotMapped]
-        public Category ParentCategory { get; set; }
-        [NotMapped]
-        public ICollection<Category> ChildCategories { get; set; }
-        [NotMapped]
-        public ICollection<Product> Products { get; set; }
     }
 
 }

@@ -18,6 +18,5 @@ namespace WebApi.Models
 
         [Required]
         public DateTime Created_At { get; set; } = DateTime.UtcNow;
-        public User User { get; set; }
     }
 }

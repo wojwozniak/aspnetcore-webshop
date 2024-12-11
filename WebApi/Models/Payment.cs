@@ -26,7 +26,5 @@ namespace WebApi.Models
         [Required]
         [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
-
-        public Order Order { get; set; }
     }
 }
