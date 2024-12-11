@@ -1,4 +1,0 @@
-Basic main tasks that will be expanded on into future
-- Setup WebAPI authentication
-- Setup WebShop basic layout
-- Use WebAPI in WebShop
