@@ -24,4 +24,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebClasses\WebClasses.csproj" />
+  </ItemGroup>
+
 </Project>
