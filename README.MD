@@ -22,7 +22,14 @@ Frontend
 ### Backend setup
 - Start `WebApi.csproj` in a VS instance
 - Run `dotnet restore` to install all needed packages
-- Replace connection string with your own
+- Replace connection string with your own. Your appsettings.Development.json should look like this
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=LAPTOP\\MSSQLSERVER01;Database=ShopDb;Integrated Security=True;TrustServerCertificate=True;"
+  }
+}
+```
 - Run it
 ### Frontend setup
 - Start `WebShop.csproj` in a VS instance
