@@ -36,4 +36,4 @@ Frontend
 
 ### Developer footnotes
 - When you start project again, you need to start it in this sequence
-- If you make changes to backend, regenerate `swagger.json` file
+- If you make changes to backend, regenerate `swagger.json` file (regeneration is buggy, delete swagger.json from OpenAPIs directory and add it again by putting in URL and "WebApi" className)
