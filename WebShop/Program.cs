@@ -1,24 +1,51 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.Authentication.Cookies;
+using WebShop.Services;
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient();
+var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
+
+services.AddControllersWithViews();
+
+
+services.AddHttpClient<ApiService>(client =>
+{
+    var baseUrl = builder.Configuration["ApiBaseUrl"];
+    client.BaseAddress = new Uri(baseUrl);
+});
+
+services.AddScoped<ProductService>();
+
+
+services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+})
+.AddCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
+
+services.AddAuthorization(options =>
+{
+    options.AddPolicy("RequireAuthenticated", policy =>
+        policy.RequireAuthenticatedUser());
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
+app.MapSwagger().RequireAuthorization();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
