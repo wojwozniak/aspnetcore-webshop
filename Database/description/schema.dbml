@@ -4,7 +4,7 @@ Table Users {
     Email varchar(255) [unique, not null]
     Phone_Number varchar(15)
     Address text
-    Role varchar(50) [default: "customer", not null] // e.g., customer or admin
+    Role varchar(1) [default: "C", not null] // e.g., customer or admin
 }
 
 Table Passwords {
@@ -34,7 +34,7 @@ Table Orders {
     Order_ID int [pk, increment, not null]
     User_ID int [not null, ref: > Users.User_ID]
     Order_Date datetime [default: `CURRENT_TIMESTAMP`, not null]
-    Status varchar(50) [default: "Pending", not null] // e.g., Pending, Shipped, Delivered, Canceled
+    Status varchar(50) [default: "P", not null] // e.g., Pending, Shipped, Delivered, Canceled
     Total_Amount decimal(10,2) [not null]
 }
 
@@ -67,6 +67,6 @@ Table Payments {
     Order_ID int [not null, ref: > Orders.Order_ID]
     Payment_Method varchar(50) [not null] // e.g., Credit Card, PayPal, Bank Transfer
     Payment_Date datetime [default: `CURRENT_TIMESTAMP`, not null]
-    Payment_Status varchar(50) [default: "Pending", not null] // e.g., Pending, Completed, Failed
+    Payment_Status varchar(50) [default: "P", not null] // e.g., Pending, Completed, Failed
     Amount decimal(10,2) [not null]
 }
