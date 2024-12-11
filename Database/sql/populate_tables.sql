@@ -1,3 +1,5 @@
+Use ShopDb;
+
 -- Populate Categories with mock data
 INSERT INTO Categories (Category_Name, Parent_Category_ID)
 VALUES 
