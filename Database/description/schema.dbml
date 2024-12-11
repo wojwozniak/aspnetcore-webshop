@@ -17,7 +17,7 @@ Table Passwords {
 Table Categories {
     Category_ID int [pk, increment, not null]
     Category_Name varchar(100) [not null]
-    Parent_Category_ID int [ref: > Categories.Category_ID]
+    Parent_Category_ID int
 }
 
 Table Products {
