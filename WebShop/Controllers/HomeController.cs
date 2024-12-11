@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebShop.Models;
-using WebClasses;
 using WebShop.Services;
 
 namespace WebShop.Controllers
@@ -40,7 +39,7 @@ namespace WebShop.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error retrieving products");
-                return View(Enumerable.Empty<WebClasses.Product>());
+                return View(Enumerable.Empty<Product>());
             }
         }
 

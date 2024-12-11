@@ -1,32 +1,28 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebClasses
+namespace WebApi.Models
 {
-    public class Payment
+    public class OrderItem
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Payment_ID { get; set; }
+        public int Order_Item_ID { get; set; }
 
         [Required]
         public int Order_ID { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string Payment_Method { get; set; }
+        public int Product_ID { get; set; }
 
         [Required]
-        public DateTime Payment_Date { get; set; } = DateTime.UtcNow;
-
-        [Required]
-        [StringLength(50)]
-        public string Payment_Status { get; set; } = "P";
+        public int Quantity { get; set; } = 1;
 
         [Required]
         [Column(TypeName = "decimal(10,2)")]
-        public decimal Amount { get; set; }
+        public decimal Price { get; set; }
 
         public Order Order { get; set; }
+        public Product Product { get; set; }
     }
 }

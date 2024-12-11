@@ -7,11 +7,14 @@ var services = builder.Services;
 services.AddControllersWithViews();
 
 
-services.AddHttpClient<ApiService>(client =>
+services.AddHttpClient<HttpClient>(client =>
 {
     var baseUrl = builder.Configuration["ApiBaseUrl"];
     client.BaseAddress = new Uri(baseUrl);
 });
+
+var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
+services.AddSingleton(new ApiService(apiBaseUrl));
 
 services.AddScoped<ProductService>();
 

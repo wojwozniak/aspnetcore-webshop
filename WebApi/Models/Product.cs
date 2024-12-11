@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace WebClasses
+namespace WebApi.Models
 {
     public class Product
     {
@@ -28,11 +28,5 @@ namespace WebClasses
         [StringLength(255)]
         public string Image_URL { get; set; }
 
-        [NotMapped]
-        public Category Category { get; set; }
-        [NotMapped]
-        public ICollection<OrderItem> OrderItems { get; set; }
-        [NotMapped]
-        public ICollection<Cart> Carts { get; set; }
     }
 }

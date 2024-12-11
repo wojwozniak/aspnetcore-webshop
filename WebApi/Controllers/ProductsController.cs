@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApi.Models;
-using WebClasses;
 
 namespace WebAPI.Controllers
 {
@@ -20,7 +19,8 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            return await _context.Products.ToListAsync();
+            var data = await _context.Products.ToListAsync();
+            return data;
         }
 
         // GET: api/Products/5
