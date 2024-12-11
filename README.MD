@@ -12,10 +12,20 @@ Backend
 Frontend
 
 ## How to run
-You need two instances of Visual Studio.
-- Open each part in separate VS instance
-- Run `dotnet restore` in both project
-And you can start:
-- Start by running WebApi part, then after few seconds you can also start WebShop.
+### Database setup
+- Create 'ShopDb' in your Microsoft SQL Server.
+- Copy connection string data, keep it for a moment
+- Run `init_tables.sql`
+- Run `populate_tables.sql`
+### Backend setup
+- Start `WebApi.csproj` in a VS instance
+- Run `dotnet restore` to install all needed packages
+- Replace connection string with your own
+- Run it
+### Frontend setup
+- Start `WebShop.csproj` in a VS instance
+- Run `dotnet restore` to install all needed packages
+- Run it
 
-I will add database section to How to run when i will complete it.
+
+When you start project again, you need to start it in this sequence.
