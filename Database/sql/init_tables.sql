@@ -90,3 +90,10 @@ CREATE TABLE Payments (
     Amount DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (Order_ID) REFERENCES Orders(Order_ID) ON DELETE CASCADE
 );
+
+-- Add needed columns
+ALTER TABLE Passwords
+ADD 
+    [Salt] [nvarchar](100) NOT NULL,
+	[HashRounds] [int] NOT NULL,
+	[PasswordSetDate] [datetime] NOT NULL;
