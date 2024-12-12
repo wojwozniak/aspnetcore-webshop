@@ -56,15 +56,6 @@ Table Cart {
     Quantity int [default: 1, not null]
 }
 
-Table Discounts {
-    Discount_ID int [pk, increment, not null]
-    Code varchar(50) [unique, not null]
-    Description text
-    Discount_Percentage decimal(5,2) [not null]
-    Start_Date datetime [not null]
-    End_Date datetime [not null]
-}
-
 Table Payments {
     Payment_ID int [pk, increment, not null]
     Order_ID int [not null, ref: > Orders.Order_ID]
