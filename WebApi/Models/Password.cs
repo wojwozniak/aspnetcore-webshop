@@ -18,5 +18,11 @@ namespace WebApi.Models
 
         [Required]
         public DateTime Created_At { get; set; } = DateTime.UtcNow;
+        [Required]
+        public string Salt { get; set; }
+        [Required]
+        public int HashRounds { get; set; }
+        [Required]
+        public DateTime PasswordSetDate { get; set; }
     }
 }
