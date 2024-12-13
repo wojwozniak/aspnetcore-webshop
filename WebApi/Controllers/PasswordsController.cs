@@ -16,14 +16,6 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Passwords
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Password>>> GetPasswords()
-        {
-            var passwords = await _context.Passwords.ToListAsync();
-            return Ok(passwords);
-        }
-
         // GET: api/Passwords/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Password>> GetPassword(int id)

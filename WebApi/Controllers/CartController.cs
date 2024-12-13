@@ -15,14 +15,6 @@ namespace WebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/Carts
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()
-        {
-            var carts = await _context.Carts.Include(c => c.User).Include(c => c.Product).ToListAsync();
-            return Ok(carts);
-        }
-
         // GET: api/Carts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Cart>> GetCart(int id)
