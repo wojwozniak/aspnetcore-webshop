@@ -14,10 +14,12 @@ namespace WebApi.Controllers
     public class AccountController : ControllerBase
     {
         private readonly ShopDbContext _context;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(ShopDbContext context)
+        public AccountController(ShopDbContext context, ITokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
 
         [HttpPost("login")]
@@ -32,7 +34,14 @@ namespace WebApi.Controllers
                     var hashedPassword = HashPassword(loginRequest.Password, passwordRecord.Salt);
                     if (hashedPassword == passwordRecord.Password_Hash)
                     {
-                        return Ok(user);
+                        // Generate JWT token
+                        var token = _tokenService.GenerateToken(user.Name, user.Email, new List<string> { user.Role });
+
+                        return Ok(new LoginResponse
+                        {
+                            User = user,
+                            Token = token
+                        });
                     }
                 }
             }
@@ -84,7 +93,18 @@ namespace WebApi.Controllers
                 };
                 _context.Passwords.Add(password);
                 await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(Register), new { id = user.User_ID }, new { message = "User registered successfully" });
+
+                // Generate JWT token for the newly registered user
+                var token = _tokenService.GenerateToken(user.Name, user.Email, new List<string> { user.Role });
+
+                return CreatedAtAction(nameof(Register),
+                    new { id = user.User_ID },
+                    new RegisterResponse
+                    {
+                        User = user,
+                        Token = token,
+                        Message = "User registered successfully"
+                    });
             }
             return Conflict(new { message = "Saving failed." });
         }
@@ -123,7 +143,14 @@ namespace WebApi.Controllers
                 await _context.SaveChangesAsync();
             }
 
-            return Ok(user);
+            // Generate JWT token for Google login
+            var token = _tokenService.GenerateToken(user.Name, user.Email, new List<string> { user.Role });
+
+            return Ok(new LoginResponse
+            {
+                User = user,
+                Token = token
+            });
         }
 
         private string GenerateSalt()
