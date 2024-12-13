@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest loginRequest)
+        public async Task<ActionResult<AuthResponse>> Login([FromBody] LoginRequest loginRequest)
         {
             User? user = _context.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
             if (user is not null)
@@ -36,9 +36,11 @@ namespace WebApi.Controllers
                         // Generate JWT token
                         var token = _tokenService.GenerateToken(user.Name, user.Email, new List<string> { user.Role });
 
-                        return Ok(new LoginResponse
+                        return Ok(new AuthResponse
                         {
-                            Token = token
+                            Token = token,
+                            Name = user.Name,
+                            Role = "U"
                         });
                     }
                 }
@@ -48,7 +50,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<RegisterResponse>> Register([FromBody] RegisterRequest registerRequest)
+        public async Task<ActionResult<AuthResponse>> Register([FromBody] RegisterRequest registerRequest)
         {
             if (!ModelState.IsValid)
             {
@@ -97,57 +99,17 @@ namespace WebApi.Controllers
 
                 return CreatedAtAction(nameof(Register),
                     new { id = user.User_ID },
-                    new RegisterResponse
+                    new AuthResponse
                     {
                         Token = token,
-                        Message = "User registered successfully"
+                        Message = "User registered successfully",
+                        Name = user.Name,
+                        Role = "U"
                     });
             }
             return Conflict(new { message = "Saving failed." });
         }
 
-        [HttpPost("login-google")]
-        public ActionResult<ChallengeResult> LoginWithGoogle()
-        {
-            var redirectUrl = Url.Action("GoogleCallback", "Account");
-            var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
-            return Challenge(properties, "Google");
-        }
-
-        [HttpGet("google-callback")]
-        public async Task<ActionResult<LoginResponse>> GoogleCallback()
-        {
-            var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-            if (!authenticateResult.Succeeded)
-                return Unauthorized();
-
-            var claims = authenticateResult.Principal.Identities.FirstOrDefault()?.Claims;
-            var email = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
-            var name = claims?.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
-
-            // Check if user exists in the database - if not, register
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            if (user == null)
-            {
-                user = new User
-                {
-                    Email = email,
-                    Name = name,
-                    Role = "U"
-                };
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync();
-            }
-
-            // Generate JWT token for Google login
-            var token = _tokenService.GenerateToken(user.Name, user.Email, new List<string> { user.Role });
-
-            return Ok(new LoginResponse
-            {
-                Token = token
-            });
-        }
 
         private string GenerateSalt()
         {
