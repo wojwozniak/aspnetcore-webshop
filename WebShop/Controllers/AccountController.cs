@@ -65,9 +65,9 @@ namespace WebShop.Controllers
         {
             if (ModelState.IsValid)
             {
-                AuthResponse result = await _accountService.RegisterRequest(request);
+                var res = await _accountService.RegisterRequest(request);
 
-                if (result is not null && !string.IsNullOrEmpty(result.Token))
+                if (res is AuthResponse result && !string.IsNullOrEmpty(result.Token))
                 {
                     var claims = new List<Claim>
                     {
