@@ -2,10 +2,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using WebApi.Models;
-using WebAPI.Controllers;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace WebApi.Controllers
 {
@@ -23,7 +22,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
+        public async Task<ActionResult<LoginResponse>> Login([FromBody] LoginRequest loginRequest)
         {
             User? user = _context.Users.FirstOrDefault(u => u.Email == loginRequest.Email);
             if (user is not null)
@@ -50,7 +49,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterRequest registerRequest)
+        public async Task<ActionResult<RegisterResponse>> Register([FromBody] RegisterRequest registerRequest)
         {
             if (!ModelState.IsValid)
             {
@@ -118,7 +117,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("google-callback")]
-        public async Task<IActionResult> GoogleCallback()
+        public async Task<ActionResult<LoginResponse>> GoogleCallback()
         {
             var authenticateResult = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -155,7 +154,7 @@ namespace WebApi.Controllers
 
         private string GenerateSalt()
         {
-            var rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+            var rng = new RNGCryptoServiceProvider();
             var buffer = new byte[16];
             rng.GetBytes(buffer);
             return Convert.ToBase64String(buffer);
