@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -26,27 +27,17 @@ namespace WebShop.Services
             return null;
         }
 
-        public async Task LoginRequest(LoginRequest request)
+        public async Task<LoginResponse> LoginRequest(LoginRequest request)
         {
-            if (request == null)
+            if (request is not null)
             {
-                return;
+                var res = await _apiService.WebApi.LoginAsync(body: request);
+                if (res is LoginResponse response)
+                {
+                    return response;
+                }
             }
-
-            var res = _apiService.WebApi.LoginAsync(body: request);
-            if (res is not null)
-            {
-
-            }
-        }
-
-        public async Task GoogleAuth()
-        {
-            var res = _apiService.WebApi.LoginGoogleAsync();
-            if (res is not null)
-            {
-
-            }
+            return null;
         }
     }
 }
