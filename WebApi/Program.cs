@@ -47,34 +47,15 @@ builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-.AddJwtBearer(options =>
-{
-    options.Authority = builder.Configuration["Auth0:Domain"];
-    options.Audience = builder.Configuration["Auth0:Audience"];
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidIssuer = builder.Configuration["Auth0:Domain"],
-        ValidAudience = builder.Configuration["Auth0:Audience"],
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true
-    };
-})
-.AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOnly", policy =>
-        policy.RequireClaim(ClaimTypes.Role, "Admin"));
+    options.AddPolicy("Admin", policy =>
+        policy.RequireClaim(ClaimTypes.Role, "A"));
 
-    options.AddPolicy("UserAccess", policy =>
-        policy.RequireAuthenticatedUser());
+    options.AddPolicy("User", policy =>
+        policy.RequireClaim(ClaimTypes.Role, "U"));
 });
 
 builder.Services.AddScoped<ITokenService, TokenService>();
