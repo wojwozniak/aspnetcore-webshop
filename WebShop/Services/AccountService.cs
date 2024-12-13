@@ -21,6 +21,7 @@ namespace WebShop.Services
                 var res = await _apiService.WebApi.RegisterAsync(body: request);
                 if (res is RegisterResponse response)
                 {
+                    SetJWTAfterSuccessfulLogin(response.Token);
                     return response;
                 }
             }
@@ -34,10 +35,16 @@ namespace WebShop.Services
                 var res = await _apiService.WebApi.LoginAsync(body: request);
                 if (res is LoginResponse response)
                 {
+                    SetJWTAfterSuccessfulLogin(response.Token);
                     return response;
                 }
             }
             return null;
+        }
+
+        public void SetJWTAfterSuccessfulLogin(string jwt)
+        {
+            _apiService.SetJwtToken(jwt);
         }
     }
 }
