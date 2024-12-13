@@ -108,7 +108,24 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChallengeResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChallengeResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChallengeResult"
+                }
+              }
+            }
           }
         }
       }
@@ -1058,6 +1075,20 @@
   },
   "components": {
     "schemas": {
+      "AuthenticationProperties": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Cart": {
         "required": [
           "product_ID",
@@ -1114,6 +1145,22 @@
         },
         "additionalProperties": false
       },
+      "ChallengeResult": {
+        "type": "object",
+        "properties": {
+          "authenticationSchemes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "properties": {
+            "$ref": "#/components/schemas/AuthenticationProperties"
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginRequest": {
         "required": [
           "email",
@@ -1136,9 +1183,6 @@
       "LoginResponse": {
         "type": "object",
         "properties": {
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
           "token": {
             "type": "string",
             "nullable": true
@@ -1271,9 +1315,6 @@
       "RegisterResponse": {
         "type": "object",
         "properties": {
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
           "token": {
             "type": "string",
             "nullable": true
