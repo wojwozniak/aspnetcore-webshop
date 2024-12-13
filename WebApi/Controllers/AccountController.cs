@@ -40,7 +40,7 @@ namespace WebApi.Controllers
                         {
                             Token = token,
                             Name = user.Name,
-                            Role = "U"
+                            Role = user.Role
                         });
                     }
                 }
@@ -97,15 +97,13 @@ namespace WebApi.Controllers
                 // Generate JWT token for the newly registered user
                 var token = _tokenService.GenerateToken(user.Name, user.Email, new List<string> { user.Role });
 
-                return CreatedAtAction(nameof(Register),
-                    new { id = user.User_ID },
-                    new AuthResponse
-                    {
-                        Token = token,
-                        Message = "User registered successfully",
-                        Name = user.Name,
-                        Role = "U"
-                    });
+                return Ok(new AuthResponse
+                {
+                    Token = token,
+                    Message = "User registered successfully",
+                    Name = user.Name,
+                    Role = "U"
+                });
             }
             return Conflict(new { message = "Saving failed." });
         }
