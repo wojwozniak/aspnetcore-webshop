@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "WebApi",
-    "version": "1.0"
+    "title": "My Web API",
+    "version": "v1"
   },
   "paths": {
     "/api/Account/login": {
