@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -46,21 +47,9 @@ namespace WebShop.Controllers
                         new Claim("AuthToken", result.Token)
                     };
 
-                    var claimsIdentity = new ClaimsIdentity(
-                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    var authProperties = new AuthenticationProperties
-                    {
-                        IsPersistent = true,
-                        ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
-                    };
-
-                    Console.WriteLine("Login code reached");
-
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),
-                        authProperties);
+                    var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    await HttpContext.SignInAsync("Cookies", claimsPrincipal);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -87,20 +76,9 @@ namespace WebShop.Controllers
                         new Claim("AuthToken", result.Token)
                     };
 
-                    var claimsIdentity = new ClaimsIdentity(
-                        claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-                    var authProperties = new AuthenticationProperties
-                    {
-                        IsPersistent = true,
-                        ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
-                    };
-
-                    Console.WriteLine("Login code reached");
-                    await HttpContext.SignInAsync(
-                        CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity),
-                        authProperties);
+                    var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                    await HttpContext.SignInAsync("Cookies", claimsPrincipal);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -113,7 +91,7 @@ namespace WebShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync("Cookies");
             _accountService.ClearJWT();
             return RedirectToAction("Index", "Home");
         }
