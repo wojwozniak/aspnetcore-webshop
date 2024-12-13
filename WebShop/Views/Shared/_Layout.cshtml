@@ -19,6 +19,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("A"))
+                        {
+                            <p>Jestes adminem</p>
+                        }
                         <li class="nav-item">
                             <a class="nav-link" asp-controller="Cart" asp-action="Index">
                                 <i class="bi bi-cart"></i> Cart
