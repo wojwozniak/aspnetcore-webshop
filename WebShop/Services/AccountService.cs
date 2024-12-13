@@ -13,18 +13,17 @@ namespace WebShop.Services
             _apiService = apiService;
         }
 
-        public async Task RegisterRequest(RegisterRequest request)
+        public async Task<RegisterResponse> RegisterRequest(RegisterRequest request)
         {
-            if (request == null)
+            if (request is not null)
             {
-                return;
+                var res = await _apiService.WebApi.RegisterAsync(body: request);
+                if (res is RegisterResponse response)
+                {
+                    return response;
+                }
             }
-
-            var res = _apiService.WebApi.RegisterAsync(body: request);
-            if(res is not null)
-            {
-
-            }
+            return null;
         }
 
         public async Task LoginRequest(LoginRequest request)
