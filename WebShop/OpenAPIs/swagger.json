@@ -35,17 +35,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               }
             }
@@ -83,75 +83,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegisterResponse"
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegisterResponse"
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RegisterResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Account/login-google": {
-      "post": {
-        "tags": [
-          "Account"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChallengeResult"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChallengeResult"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChallengeResult"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Account/google-callback": {
-      "get": {
-        "tags": [
-          "Account"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LoginResponse"
+                  "$ref": "#/components/schemas/AuthResponse"
                 }
               }
             }
@@ -1075,15 +1017,23 @@
   },
   "components": {
     "schemas": {
-      "AuthenticationProperties": {
+      "AuthResponse": {
         "type": "object",
         "properties": {
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "nullable": true
-            },
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -1145,22 +1095,6 @@
         },
         "additionalProperties": false
       },
-      "ChallengeResult": {
-        "type": "object",
-        "properties": {
-          "authenticationSchemes": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "properties": {
-            "$ref": "#/components/schemas/AuthenticationProperties"
-          }
-        },
-        "additionalProperties": false
-      },
       "LoginRequest": {
         "required": [
           "email",
@@ -1176,16 +1110,6 @@
           "password": {
             "minLength": 1,
             "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "LoginResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1306,20 +1230,6 @@
             "type": "string"
           },
           "confirmPassword": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "RegisterResponse": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "type": "string",
-            "nullable": true
-          },
-          "message": {
             "type": "string",
             "nullable": true
           }
