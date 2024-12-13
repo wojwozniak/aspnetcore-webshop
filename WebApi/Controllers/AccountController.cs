@@ -38,7 +38,6 @@ namespace WebApi.Controllers
 
                         return Ok(new LoginResponse
                         {
-                            User = user,
                             Token = token
                         });
                     }
@@ -100,7 +99,6 @@ namespace WebApi.Controllers
                     new { id = user.User_ID },
                     new RegisterResponse
                     {
-                        User = user,
                         Token = token,
                         Message = "User registered successfully"
                     });
@@ -109,7 +107,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("login-google")]
-        public IActionResult LoginWithGoogle()
+        public ActionResult<ChallengeResult> LoginWithGoogle()
         {
             var redirectUrl = Url.Action("GoogleCallback", "Account");
             var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
@@ -147,7 +145,6 @@ namespace WebApi.Controllers
 
             return Ok(new LoginResponse
             {
-                User = user,
                 Token = token
             });
         }
