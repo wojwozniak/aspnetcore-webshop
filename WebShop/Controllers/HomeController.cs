@@ -28,6 +28,13 @@ namespace WebShop.Controllers
                 var products = await _productService.GetProductsAsync();
 
                 _logger.LogInformation("products for home downloaded");
+                Console.WriteLine(User.Identity.IsAuthenticated.ToString());
+                if(User.Identity.Name is not null)
+                {
+                    Console.WriteLine(User.Identity.Name.ToString());
+                }
+                
+                Console.WriteLine(User.Claims.ToList().ToString());
 
                 return View(products);
             }
