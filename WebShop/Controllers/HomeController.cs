@@ -1,10 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using WebShop.Models;
 using WebShop.Services;
 
 namespace WebShop.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -24,15 +27,7 @@ namespace WebShop.Controllers
             {
                 var products = await _productService.GetProductsAsync();
 
-                foreach (var product in products)
-                {
-                    _logger.LogInformation(
-                        "Product - ID: {ProductId}, Name: {ProductName}, Price: {ProductPrice}",
-                        product.Product_ID,
-                        product.Name,
-                        product.Price
-                    );
-                }
+                _logger.LogInformation("products for home downloaded");
 
                 return View(products);
             }
