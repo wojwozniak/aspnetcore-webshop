@@ -16,6 +16,7 @@ services.AddHttpClient<HttpClient>(client =>
 var apiBaseUrl = builder.Configuration.GetValue<string>("ApiBaseUrl");
 services.AddSingleton(new ApiService(apiBaseUrl));
 services.AddScoped<ProductService>();
+services.AddScoped<AccountService>();
 
 services.AddAuthentication(options =>
 {
@@ -26,11 +27,6 @@ services.AddAuthentication(options =>
 {
     options.LoginPath = "/Account/Login";
     options.AccessDeniedPath = "/Account/AccessDenied";
-})
-.AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
 });
 
 services.AddAuthorization(options =>
